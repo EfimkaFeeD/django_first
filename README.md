@@ -1,4 +1,4 @@
-![pipline](gitlab.crja72.ru:django_2023/students/144959-efimkafeed-47231.git/badges/main/pipeline.svg)
+![pipline](https://gitlab.crja72.ru/django_2023/students/144959-efimkafeed-47231.git/badges/main/pipeline.svg)
 
 # Создание и включение venv:
 ```sh
