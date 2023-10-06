@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,python,venv,django,visualstudiocode,visualstudio,pycharm
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,python,venv,django,visualstudiocode,visualstudio,pycharm
+# Test/Example env file allowed
+!test.env
 
 ### Django ###
 *.log
@@ -866,6 +866,3 @@ FodyWeavers.xsd
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
-
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,python,venv,django,visualstudiocode,visualstudio,pycharm
-
