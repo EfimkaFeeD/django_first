@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import TestCase
 
 
@@ -8,7 +10,7 @@ class HomepageTests(TestCase):
 
     def test_coffee_status(self):
         response = self.client.get("/coffee/")
-        self.assertEqual(response.status_code, 418)
+        self.assertEqual(response.status_code, HTTPStatus.IM_A_TEAPOT)
 
     def test_coffee_text(self):
         response = self.client.get("/coffee/")
