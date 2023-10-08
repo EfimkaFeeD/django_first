@@ -1,20 +1,17 @@
+import os
 from pathlib import Path
 
-from decouple import config
-
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
-SECRET_KEY = config("DJANGO_KEY")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "very_secret_key")
 
-DEBUG = config("DEBUG_STATUS")
+DEBUG = os.getenv("DJANGO_DEBUG", "True")
 
-ALLOWED_HOSTS = config(
-    "WHITELIST_HOSTS",
-    cast=lambda line: [item.strip() for item in line.split(",")],
-)
-
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -64,14 +61,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "lyceum.wsgi.application"
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,7 +87,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -101,8 +95,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 STATIC_URL = "static/"
-
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

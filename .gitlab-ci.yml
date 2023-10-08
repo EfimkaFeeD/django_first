@@ -1,6 +1,7 @@
 stages:
   - build
   - linting
+  - test
 
 build:
   stage: build
@@ -19,3 +20,8 @@ black:
   image: registry.gitlab.com/pipeline-components/black:latest
   script:
     - black --check --line-length 79 -- .
+
+django-tests:
+  stage: test
+  script:
+    - python manage.py test
