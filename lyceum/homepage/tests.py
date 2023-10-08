@@ -7,9 +7,9 @@ class HomepageTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_coffee_status(self):
-        response = self.client.get("/coffee")
+        response = self.client.get("/coffee/")
         self.assertEqual(response.status_code, 418)
 
     def test_coffee_text(self):
-        response = self.client.get("/coffee")
+        response = self.client.get("/coffee/")
         self.assertEqual(response.content.decode(), "Я чайник")
