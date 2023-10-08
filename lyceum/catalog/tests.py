@@ -7,7 +7,7 @@ class CatalogTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_page(self):
-        response = self.client.get("/catalog/1")
+        response = self.client.get("/catalog/1/")
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_page_wrong_data(self):
