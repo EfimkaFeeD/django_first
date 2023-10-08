@@ -1,7 +1,10 @@
 import os
 from pathlib import Path
 
+from decouple import config
+
 from dotenv import load_dotenv
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,7 +14,17 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "very_secret_key")
 
 DEBUG = os.getenv("DJANGO_DEBUG", "True")
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
+if "DJANGO_ALLOWED_HOSTS" in os.environ.values():
+    ALLOWED_HOSTS = [
+        item.strip() for item in os.environ["DJANGO_ALLOWED_HOSTS"].split(",")
+    ]
+
+else:
+    ALLOWED_HOSTS = config(
+        "DJANGO_ALLOWED_HOSTS",
+        cast=lambda line: [item.strip() for item in line.split(",")],
+        default="*",
+    )
 
 INSTALLED_APPS = [
     "django.contrib.admin",
