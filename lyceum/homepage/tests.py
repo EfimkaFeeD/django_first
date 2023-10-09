@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from django.test import TestCase
+from django.test import override_settings, TestCase
 
 
 class HomepageTests(TestCase):
@@ -13,5 +13,6 @@ class HomepageTests(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.IM_A_TEAPOT)
 
     def test_coffee_text(self):
-        response = self.client.get("/coffee/")
-        self.assertEqual(response.content.decode(), "Я чайник")
+        with override_settings(ALLOW_REVERSE=False):
+            response = self.client.get("/coffee/")
+            self.assertEqual(response.content.decode(), "Я чайник")

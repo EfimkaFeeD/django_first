@@ -40,7 +40,7 @@ MIDDLEWARE = [
     "lyceum.middleware.SimpleLyceumMiddleware",
 ]
 
-ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "false").lower()
+ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "true").lower()
 ALLOW_REVERSE = ALLOW_REVERSE_ENV in ("true", "1", "yes", "y", "")
 
 INTERNAL_IPS = [
