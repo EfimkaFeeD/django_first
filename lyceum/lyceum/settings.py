@@ -37,7 +37,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "lyceum.middleware.SimpleLyceumMiddleware",
 ]
+
+ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "false").lower()
+ALLOW_REVERSE = ALLOW_REVERSE_ENV in ("true", "1", "yes", "y", "")
 
 INTERNAL_IPS = [
     "127.0.0.1",
