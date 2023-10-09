@@ -13,7 +13,7 @@ class SimpleLyceumMiddleware:
         global request_number
         have_body = False
         request_number += 1
-        russian = re.compile("^[?!,.а-яА-ЯёЁ0-9\s]+$")
+        russian = re.compile("^[?!,.а-яА-ЯёЁ0-9\\s]+$")
         response = self.get_response(request)
         content = response.content.decode()
         if "<body>" in content:
