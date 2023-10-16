@@ -1,4 +1,5 @@
 from django.test import override_settings, TestCase
+from django.urls import reverse
 
 from . import middleware
 
@@ -9,7 +10,7 @@ class MiddlewareTests(TestCase):
 
     def test_middleware(self):
         for i in range(10):
-            response = self.client.get("/coffee/")
+            response = self.client.get(reverse("coffee"))
             if i != 9:
                 self.assertEqual(response.content.decode(), "Я чайник")
             elif i == 9:
@@ -18,5 +19,5 @@ class MiddlewareTests(TestCase):
     def test_override_false(self):
         with override_settings(ALLOW_REVERSE=False):
             for _ in range(10):
-                response = self.client.get("/coffee/")
+                response = self.client.get(reverse("coffee"))
                 self.assertEqual(response.content.decode(), "Я чайник")

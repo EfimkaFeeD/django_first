@@ -1,5 +1,5 @@
+import about.views as views
+
 from django.urls import path
 
-from . import views
-
-urlpatterns = [path("", views.description)]
+urlpatterns = [path("", views.description, name="description")]
