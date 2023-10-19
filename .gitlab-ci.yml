@@ -6,22 +6,23 @@ stages:
 build:
   stage: build
   script:
-    - python -m pip install --upgrade pip
     - python -m pip install -r requirements/test.txt
     - pip install flake8-quotes flake8-import-order pep8-naming
 
 flake8:
   stage: linting
   script:
-    - flake8 . --count --show-source --statistics --inline-quotes 'double'
+    - flake8 .
 
 black:
   stage: linting
   image: registry.gitlab.com/pipeline-components/black:latest
   script:
-    - black --check --line-length 79 -- .
+    - black -- .
 
 django-tests:
   stage: test
   script:
+    - mv test.env .env
+    - cd lyceum
     - python manage.py test
