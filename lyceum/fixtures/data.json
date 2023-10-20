@@ -1,0 +1,94 @@
+[
+  {
+    "model": "catalog.tag",
+    "pk": 1,
+    "fields": {
+      "name": "Чай",
+      "is_published": true,
+      "slug": "tea"
+    }
+  },
+  {
+    "model": "catalog.tag",
+    "pk": 2,
+    "fields": {
+      "name": "Молоко",
+      "is_published": true,
+      "slug": "milk"
+    }
+  },
+  {
+    "model": "catalog.tag",
+    "pk": 3,
+    "fields": {
+      "name": "Вода",
+      "is_published": true,
+      "slug": "water"
+    }
+  },
+  {
+    "model": "catalog.tag",
+    "pk": 4,
+    "fields": {
+      "name": "Газировки",
+      "is_published": true,
+      "slug": "soda"
+    }
+  },
+  {
+    "model": "catalog.tag",
+    "pk": 5,
+    "fields": {
+      "name": "Кофе",
+      "is_published": true,
+      "slug": "coffee"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Напитки",
+      "is_published": true,
+      "slug": "drinks",
+      "weight": 100
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Еда",
+      "is_published": true,
+      "slug": "food",
+      "weight": 250
+    }
+  },
+  {
+    "model": "catalog.item",
+    "pk": 1,
+    "fields": {
+      "name": "\"Шишкин лес\"",
+      "is_published": true,
+      "text": "Превосходно освежает, роскошно выглядит",
+      "category": 1,
+      "tags": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "catalog.item",
+    "pk": 2,
+    "fields": {
+      "name": "Матча",
+      "is_published": true,
+      "text": "Превосходно тает во рту (фантазия вышла из чата)",
+      "category": 1,
+      "tags": [
+        1
+      ]
+    }
+  }
+]

@@ -20,7 +20,7 @@ class ValidateMustContain:
                 return
         words = "или".join([f"`{i}`" for i in self.args])
         raise (
-            django.core.exceptions.ViewDoesNotExist(
+            django.core.exceptions.ValidationError(
                 f"В тексте должны быть слова {words}"
             )
         )
@@ -30,6 +30,9 @@ class Tag(AbstractCatalogModel):
     class Meta:
         verbose_name = "Тег"
         verbose_name_plural = "Теги"
+
+    def __str__(self):
+        return self.name
 
     slug = models.CharField(
         "Слаг",
@@ -46,6 +49,9 @@ class Category(AbstractCatalogModel):
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
+    def __str__(self):
+        return self.name
 
     slug = models.CharField(
         "Слаг",
@@ -72,7 +78,7 @@ class Item(AbstractCatalogModel):
         verbose_name_plural = "Товары"
 
     def __str__(self):
-        return self.text[:15]
+        return self.name
 
     text = models.TextField(
         "Текст",
