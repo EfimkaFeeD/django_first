@@ -2,7 +2,6 @@ import re
 
 import django.core.exceptions
 import django.core.validators
-
 import django.db.models as models
 from django.utils.deconstruct import deconstructible
 
