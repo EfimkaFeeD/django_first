@@ -28,7 +28,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS.append("debug_toolbar.apps,")
+    INSTALLED_APPS.append("debug_toolbar.apps")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -38,9 +38,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "lyceum.middleware.SimpleLyceumMiddleware",
 ]
+
+if DEBUG:
+    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
 
 ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "true").lower()
 ALLOW_REVERSE = ALLOW_REVERSE_ENV in ("true", "1", "yes", "y", "")
