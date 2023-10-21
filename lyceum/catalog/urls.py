@@ -1,6 +1,6 @@
-import catalog.views as views
-
 from django.urls import path, re_path, register_converter
+
+import catalog.views as views
 
 
 class PositiveIntConverter:

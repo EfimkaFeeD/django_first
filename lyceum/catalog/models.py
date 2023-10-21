@@ -1,10 +1,11 @@
 import re
 
-from core.models import AbstractCatalogModel
-
 import django.core.exceptions
 import django.core.validators
 import django.db.models as models
+
+from core.models import AbstractCatalogModel
+
 from django.utils.deconstruct import deconstructible
 
 
@@ -67,7 +68,7 @@ class Category(AbstractCatalogModel):
         help_text="Укажите вес товара",
         default=100,
         validators=[
-            django.core.validators.MinValueValidator(0),
+            django.core.validators.MinValueValidator(1),
             django.core.validators.MaxValueValidator(32767),
         ],
     )
