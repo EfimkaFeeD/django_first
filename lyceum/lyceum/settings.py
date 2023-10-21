@@ -25,8 +25,10 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "catalog.apps.CatalogConfig",
     "homepage.apps.HomepageConfig",
-    "debug_toolbar.apps",
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append("debug_toolbar.apps,")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

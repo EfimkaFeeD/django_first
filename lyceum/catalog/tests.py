@@ -1,5 +1,4 @@
 import django.core.exceptions as exceptions
-
 from django.test import TestCase
 
 from catalog.models import Category, Item, Tag
