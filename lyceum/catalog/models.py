@@ -28,14 +28,14 @@ class ValidateMustContain:
 
 class Tag(AbstractCatalogModel):
     class Meta:
-        verbose_name = "Тег"
-        verbose_name_plural = "Теги"
+        verbose_name = "тег"
+        verbose_name_plural = "теги"
 
     def __str__(self):
         return self.name
 
     slug = models.CharField(
-        "Слаг",
+        "слаг",
         help_text="Укажите слаг товара",
         unique=True,
         max_length=200,
@@ -47,14 +47,14 @@ class Tag(AbstractCatalogModel):
 
 class Category(AbstractCatalogModel):
     class Meta:
-        verbose_name = "Категория"
-        verbose_name_plural = "Категории"
+        verbose_name = "категория"
+        verbose_name_plural = "категории"
 
     def __str__(self):
         return self.name
 
     slug = models.CharField(
-        "Слаг",
+        "слаг",
         help_text="Укажите слаг товара",
         unique=True,
         max_length=200,
@@ -63,8 +63,9 @@ class Category(AbstractCatalogModel):
         ],
     )
     weight = models.IntegerField(
-        "Вес",
+        "вес",
         help_text="Укажите вес товара",
+        default=100,
         validators=[
             django.core.validators.MinValueValidator(0),
             django.core.validators.MaxValueValidator(32767),
@@ -74,14 +75,14 @@ class Category(AbstractCatalogModel):
 
 class Item(AbstractCatalogModel):
     class Meta:
-        verbose_name = "Товар"
-        verbose_name_plural = "Товары"
+        verbose_name = "товар"
+        verbose_name_plural = "товары"
 
     def __str__(self):
         return self.name
 
     text = models.TextField(
-        "Текст",
+        "текст",
         help_text="Опишите товар",
         default="",
         validators=[ValidateMustContain("превосходно", "роскошно")],
