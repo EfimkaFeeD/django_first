@@ -5,21 +5,52 @@ __all__ = [
     "TagModelTests",
 ]
 
-import django.core.exceptions as exceptions
-import django.urls.exceptions as url_exceptions
-
 from django.test import TestCase
 from django.urls import reverse
+import django.core.exceptions as exceptions
+import django.urls.exceptions as url_exceptions
 
 from catalog.models import Category, Item, Tag
 
 
 class CatalogTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.category = Category.objects.create(
+            is_published=True,
+            name="Категория для тестиков",
+            slug="category-for-tests",
+            weight=999,
+        )
+
+        cls.tag = Tag.objects.create(
+            is_published=True,
+            name="Тег для тестиков",
+            slug="tag-for-tests",
+        )
+
+        cls.tag_repeat = Tag.objects.create(
+            is_published=True,
+            name="Тег для тестиков репит",
+            slug="tag-for-tests-repeat",
+        )
+
     def test_catalog_page(self):
         response = self.client.get(reverse("catalog:item_list"))
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_page(self):
+        self.item = Item.objects.create(
+            name="Итем для тестиков",
+            category=self.category,
+            text="Превосходно тестится"
+        )
+
+        self.item.full_clean()
+        self.item.save()
+        self.item.tags.add(self.tag)
         response = self.client.get(reverse("catalog:item_detail", args=[1]))
         self.assertEqual(response.status_code, 200)
 

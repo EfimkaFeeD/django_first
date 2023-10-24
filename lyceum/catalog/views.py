@@ -13,7 +13,8 @@ def item_list(request):
         data.append(
             {
                 "name": item.name,
-                "path": reverse("catalog:item_detail", args=[item.id]),
+                "path": reverse("catalog:item_detail_for_site",
+                                args=[item.id]),
                 "category": item.category.name,
                 "text": f"{item.text[:200]}...",
                 "main_image": item.main_image,
@@ -23,6 +24,10 @@ def item_list(request):
 
 
 def item_detail(request, item_id):
+    return HttpResponse("<body>Подробно элемент</body>")
+
+
+def item_detail_for_site(request, item_id):
     item = Item.objects.get(pk=item_id)
     images = Images.objects.filter(item=item_id).all()
     data = {
