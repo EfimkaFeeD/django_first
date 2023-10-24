@@ -5,10 +5,6 @@ from django.contrib import admin
 import catalog.models
 
 
-class MainImageInline(admin.StackedInline):
-    model = catalog.models.MainImage
-
-
 class ImagesInline(admin.StackedInline):
     model = catalog.models.Images
 
@@ -20,7 +16,7 @@ class ImagesAdmin(admin.ModelAdmin):
 
 @admin.register(catalog.models.Item)
 class ItemAdmin(admin.ModelAdmin):
-    inlines = [ImagesInline, MainImageInline]
+    inlines = [ImagesInline]
     list_display = (
         catalog.models.Item.name.field.name,
         catalog.models.Item.is_published.field.name,

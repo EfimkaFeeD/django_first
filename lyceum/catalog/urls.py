@@ -24,8 +24,11 @@ register_converter(PositiveIntConverter, "posint")
 urlpatterns = [
     path("", views.item_list, name="item_list"),
     path("<int:item_id>/", views.item_detail, name="item_detail"),
-    path("item/<int:item_id_for_site>/", views.item_detail_for_site,
-         name="item_detail_for_site"),
+    path(
+        "item/<int:item_id_for_site>/",
+        views.item_detail_for_site,
+        name="item_detail_for_site",
+    ),
     re_path(
         r"^re/(?P<re_item_id>[1-9]\d*)/$",
         views.re_item_detail,

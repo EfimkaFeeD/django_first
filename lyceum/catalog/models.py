@@ -59,7 +59,23 @@ class Category(AbstractCatalogModel):
     )
 
 
-class Item(AbstractCatalogModel):
+class MainImage(models.Model):
+    class Meta:
+        abstract = True
+
+    main_image = models.ImageField(
+        verbose_name="главная картинка",
+        help_text="Главная картинка товара",
+        upload_to="catalog/images/main_images/",
+        default=None,
+        blank=True,
+    )
+
+    def to_300x300(self):
+        return get_thumbnail(self.image, "300x300", quality=51)
+
+
+class Item(AbstractCatalogModel, MainImage):
     class Meta:
         verbose_name = "товар"
         verbose_name_plural = "товары"
@@ -88,43 +104,6 @@ class Item(AbstractCatalogModel):
         help_text="Добавьте теги. P.S.:",
         related_name="tags",
     )
-
-
-class MainImage(models.Model):
-    class Meta:
-        verbose_name = "главная картинка"
-        verbose_name_plural = "главные картинки"
-
-    item = models.ForeignKey(
-        Item,
-        on_delete=models.CASCADE,
-        verbose_name="товар",
-        help_text="Товар к которому добавить главную картинку",
-        related_name="itemimg",
-    )
-
-    main_image = models.ImageField(
-        "картинка для товара",
-        help_text="Добавьте картинку для товара (она переделается в 300x300)",
-        upload_to="catalog/images/main_images/",
-        default=None,
-        blank=True,
-    )
-
-    def main_image_to_300x300(self):
-        return get_thumbnail(
-            self.main_image,
-            "300x300",
-            crop="center",
-            quality=51,
-        )
-
-    def image_tmb(self):
-        if self.main_image:
-            return mark_safe(f"<img src='{self.main_image.url}' width='50'")
-
-    image_tmb.short_description = "превью"
-    image_tmb.allow_tags = True
 
 
 class Images(models.Model):

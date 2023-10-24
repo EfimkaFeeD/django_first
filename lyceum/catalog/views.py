@@ -10,15 +10,15 @@ from catalog.models import Images, Item, MainImage
 def item_list(request):
     data = []
     for item in Item.objects.all():
-        main_image = MainImage.objects.filter(item=item.id).first()
         data.append(
             {
                 "name": item.name,
-                "path": reverse("catalog:item_detail_for_site",
-                                args=[item.id]),
+                "path": reverse(
+                    "catalog:item_detail_for_site", args=[item.id],
+                ),
                 "category": item.category.name,
                 "text": f"{item.text[:200]}...",
-                "main_image": main_image,
+                "main_image": item.main_image,
             },
         )
     return render(request, "catalog/item_list.html", context={"items": data})
@@ -31,12 +31,11 @@ def item_detail(request, item_id):
 def item_detail_for_site(request, item_id_for_site):
     item = Item.objects.get(pk=item_id_for_site)
     images = Images.objects.filter(item=item_id_for_site).all()
-    main_image = MainImage.objects.filter(item=item_id_for_site).first()
     data = {
         "name": item.name,
         "category": item.category.name,
         "text": item.text,
-        "main_image": main_image,
+        "main_image": item.main_image,
         "images": images,
     }
     return render(request, "catalog/item.html", context={"item": data})
