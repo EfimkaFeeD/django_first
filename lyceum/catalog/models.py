@@ -1,29 +1,15 @@
-import re
+import os
+
+from catalog.validators import ValidateMustContain
+
+from core.models import AbstractCatalogModel
 
 import django.core.exceptions
 import django.core.validators
 import django.db.models as models
-from django.utils.deconstruct import deconstructible
+from django.utils.safestring import mark_safe
 
-from core.models import AbstractCatalogModel
-
-
-@deconstructible
-class ValidateMustContain:
-    def __init__(self, *args):
-        self.args = args
-
-    def __call__(self, value):
-        regex = re.findall(r"\w+[А-я]+\w+", value.lower())
-        for i in self.args:
-            if i in regex:
-                return
-        words = "или".join([f"`{i}`" for i in self.args])
-        raise (
-            django.core.exceptions.ValidationError(
-                f"В тексте должны быть слова {words}"
-            )
-        )
+from sorl.thumbnail import get_thumbnail
 
 
 class Tag(AbstractCatalogModel):
@@ -88,6 +74,64 @@ class Item(AbstractCatalogModel):
         validators=[ValidateMustContain("превосходно", "роскошно")],
     )
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, default=""
+        Category,
+        on_delete=models.CASCADE,
+        default="",
+        verbose_name="категория",
+        help_text="Выберите категорию",
     )
-    tags = models.ManyToManyField(Tag, default="")
+    tags = models.ManyToManyField(
+        Tag, default="", verbose_name="теги", help_text="Добавьте теги. P.S.:"
+    )
+
+    main_image = models.ImageField(
+        "картинка для товара",
+        help_text="Добавьте картинку для товара (она переделается в 300x300)",
+        upload_to="catalog/images/main_images/",
+        default=None,
+    )
+
+    def main_image_to_300x300(self):
+        return get_thumbnail(
+            self.main_image, "300x300", crop="center", quality=51
+        )
+
+    def image_tmb(self):
+        if self.main_image:
+            return mark_safe(f"<img src='{self.main_image.url}' width='50'")
+
+    image_tmb.short_description = "превью"
+    image_tmb.allow_tags = True
+
+
+class Images(models.Model):
+    class Meta:
+        verbose_name = "картинка"
+        verbose_name_plural = "картинки"
+
+    item = models.ForeignKey(
+        Item,
+        on_delete=models.CASCADE,
+        verbose_name="товар",
+        help_text="Товар к которому добавить картинку",
+    )
+
+    image = models.ImageField(
+        upload_to="catalog/images/item_images/",
+        default=None,
+        verbose_name="картинка",
+        help_text="Картинка для товара (переделается в 300x300)",
+    )
+
+    def __str__(self):
+        return os.path.split(self.image.name)[1][:50]
+
+    def image_to_300x300(self):
+        return get_thumbnail(self.image, "300x300", crop="center", quality=51)
+
+    def image_tmb(self):
+        if self.image:
+            return mark_safe(f"<img src='{self.image.url}' width='50'")
+
+    image_tmb.short_description = "превью"
+    image_tmb.allow_tags = True

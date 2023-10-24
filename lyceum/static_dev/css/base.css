@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "JBNF";
+    src: url("../files/JetBrainsMonoNerdFont-Regular.ttf") format("truetype");
+    src: url("../files/JetBrainsMonoNerdFont-Regular.woff") format("woff");
+}
+
+body {
+    font-family: "JBNF", "Tahoma";
+    padding: 50px;
+    background-color: #bcb4ab;
+    color: black;
+}
+
+.dark-mode {
+    background-color: #5e5a56;
+    color: white;
+}

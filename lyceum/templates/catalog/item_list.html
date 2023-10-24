@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %} Каталог {% endblock %}
+{% block content %}
+  <h1 align="center">Страница с товарами</h1>
+  <div class="row  row-cols-auto row-cols-md-auto row-cols-lg-auto row-cols-xl-auto g-4">
+    {% for item in items %}
+      <div class="col">
+        <div class="card">
+          {% thumbnail item.main_image "300x300" crop="center" as image %}
+            <img src="{{image.url}}" alt="Превьюшка товара">
+          {% endthumbnail %}
+          <div class="card-body">
+            <h5 class="card-title" align="center">{{item.name}}</h5>
+            <p class="card-text" align="center">{{item.category}}</p>
+            <p class="card-text" align="center">{{item.text}}</p>
+            <a href="{{item.path}}" class="btn btn-primary">Перейти к товару</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

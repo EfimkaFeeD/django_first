@@ -1,8 +1,10 @@
 from django.http import HttpResponse
+from django.template import loader
 
 
 def home(request):
-    return HttpResponse("<body>Главная</body>")
+    template = loader.get_template("homepage/main.html")
+    return HttpResponse(template.render({}, request))
 
 
 def coffee(request):

@@ -29,3 +29,6 @@ pip install -r requirements/test.txt
 cd lyceum
 python manage.py runserver
 ```
+
+# Структура базы данных
+![](ER.jpg)

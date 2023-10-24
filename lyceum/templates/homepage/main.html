@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %} Главная {% endblock %}
+{% block content %}
+{% load static %}
+  <h1 align="center">Главная страница сайта</h1>
+  <div align="center">
+    <h3>Занимаемся продажей пищевых и бытовых товаров с 2023, подробнее со списком вы можете в каталоге.</h3>
+  </div>
+  <br>
+  <div align="center">
+    <a href="{% url 'catalog:item_list' %}">
+      <button class="btn btn-lg btn-info rounded-pill px-3" type="button">ТЫК (Каталог)</button>
+    </a>
+  </div>
+{% endblock %}

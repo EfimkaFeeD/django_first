@@ -3,6 +3,9 @@ from django.urls import path, re_path, register_converter
 import catalog.views as views
 
 
+app_name = "catalog"
+
+
 class PositiveIntConverter:
     regex = r"[1-9]\d*"
 

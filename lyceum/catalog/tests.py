@@ -1,37 +1,48 @@
-import django.core.exceptions as exceptions
-from django.test import TestCase
-
 from catalog.models import Category, Item, Tag
+
+import django.core.exceptions as exceptions
+import django.urls.exceptions as url_exceptions
+from django.test import TestCase
+from django.urls import reverse
 
 
 class CatalogTests(TestCase):
     def test_catalog_page(self):
-        response = self.client.get("/catalog/")
+        response = self.client.get(reverse("catalog:item_list"))
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_page(self):
-        response = self.client.get("/catalog/1/")
+        response = self.client.get(reverse("catalog:item_detail", args=[1]))
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_page_wrong_data(self):
-        response = self.client.get("/catalog/test/")
-        self.assertEqual(response.status_code, 404)
+        with self.assertRaises(url_exceptions.NoReverseMatch):
+            response = self.client.get(
+                reverse("catalog:item_detail", args=["test"])
+            )
+            self.assertEqual(response.status_code, 404)
 
     def test_catalog_re_item_page(self):
-        response = self.client.get("/catalog/re/2/")
+        response = self.client.get(reverse("catalog:re_item_detail", args=[2]))
         self.assertContains(response, status_code=200, text=2)
 
     def test_catalog_re_item_page_wrong_data(self):
-        response = self.client.get("/catalog/re/test2/")
-        self.assertEqual(response.status_code, 404)
+        with self.assertRaises(url_exceptions.NoReverseMatch):
+            response = self.client.get(
+                reverse("catalog:re_item_detail", args=["test2"])
+            )
+            self.assertEqual(response.status_code, 404)
 
     def test_catalog_conv_item_page(self):
-        response = self.client.get("/catalog/converter/3/")
+        response = self.client.get(reverse("catalog:item_converter", args=[3]))
         self.assertContains(response, status_code=200, text=3)
 
     def test_catalog_conv_item_page_wrong_data(self):
-        response = self.client.get("/catalog/converter/test3/")
-        self.assertEqual(response.status_code, 404)
+        with self.assertRaises(url_exceptions.NoReverseMatch):
+            response = self.client.get(
+                reverse("catalog:item_converter", args=["test3"])
+            )
+            self.assertEqual(response.status_code, 404)
 
 
 class ItemModelsTests(TestCase):
