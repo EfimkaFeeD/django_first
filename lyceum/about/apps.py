@@ -1,3 +1,5 @@
+__all__ = ["AboutConfig"]
+
 from django.apps import AppConfig
 
 

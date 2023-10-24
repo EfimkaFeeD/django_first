@@ -1,3 +1,5 @@
+__all__ = ["ValidateMustContain"]
+
 import re
 
 import django
@@ -17,6 +19,6 @@ class ValidateMustContain:
         words = "или".join([f"`{i}`" for i in self.args])
         raise (
             django.core.exceptions.ValidationError(
-                f"В тексте должны быть слова {words}"
+                f"В тексте должны быть слова {words}",
             )
         )

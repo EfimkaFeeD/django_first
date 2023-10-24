@@ -1,3 +1,5 @@
+__all__ = ["MiddlewareTests"]
+
 from django.test import override_settings, TestCase
 from django.urls import reverse
 

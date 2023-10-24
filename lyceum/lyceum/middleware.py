@@ -1,3 +1,5 @@
+__all__ = ["SimpleLyceumMiddleware"]
+
 import re
 
 from django.conf import settings

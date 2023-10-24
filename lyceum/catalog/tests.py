@@ -1,9 +1,17 @@
-from catalog.models import Category, Item, Tag
+__all__ = [
+    "CatalogTests",
+    "ItemModelsTests",
+    "CategoryModelTests",
+    "TagModelTests",
+]
 
 import django.core.exceptions as exceptions
 import django.urls.exceptions as url_exceptions
+
 from django.test import TestCase
 from django.urls import reverse
+
+from catalog.models import Category, Item, Tag
 
 
 class CatalogTests(TestCase):
@@ -18,7 +26,7 @@ class CatalogTests(TestCase):
     def test_catalog_item_page_wrong_data(self):
         with self.assertRaises(url_exceptions.NoReverseMatch):
             response = self.client.get(
-                reverse("catalog:item_detail", args=["test"])
+                reverse("catalog:item_detail", args=["test"]),
             )
             self.assertEqual(response.status_code, 404)
 
@@ -29,7 +37,7 @@ class CatalogTests(TestCase):
     def test_catalog_re_item_page_wrong_data(self):
         with self.assertRaises(url_exceptions.NoReverseMatch):
             response = self.client.get(
-                reverse("catalog:re_item_detail", args=["test2"])
+                reverse("catalog:re_item_detail", args=["test2"]),
             )
             self.assertEqual(response.status_code, 404)
 
@@ -40,7 +48,7 @@ class CatalogTests(TestCase):
     def test_catalog_conv_item_page_wrong_data(self):
         with self.assertRaises(url_exceptions.NoReverseMatch):
             response = self.client.get(
-                reverse("catalog:item_converter", args=["test3"])
+                reverse("catalog:item_converter", args=["test3"]),
             )
             self.assertEqual(response.status_code, 404)
 

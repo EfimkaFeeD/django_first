@@ -1,15 +1,16 @@
+__all__ = ["Tag", "Category", "Item", "Images"]
+
 import os
-
-from catalog.validators import ValidateMustContain
-
-from core.models import AbstractCatalogModel
 
 import django.core.exceptions
 import django.core.validators
 import django.db.models as models
-from django.utils.safestring import mark_safe
 
+from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
+
+from catalog.validators import ValidateMustContain
+from core.models import AbstractCatalogModel
 
 
 class Tag(AbstractCatalogModel):
@@ -26,7 +27,7 @@ class Tag(AbstractCatalogModel):
         unique=True,
         max_length=200,
         validators=[
-            django.core.validators.RegexValidator("^[-_A-Za-z0-9\\s]+$")
+            django.core.validators.RegexValidator("^[-_A-Za-z0-9\\s]+$"),
         ],
     )
 
@@ -45,7 +46,7 @@ class Category(AbstractCatalogModel):
         unique=True,
         max_length=200,
         validators=[
-            django.core.validators.RegexValidator("^[-_A-Za-z0-9\\s]+$")
+            django.core.validators.RegexValidator("^[-_A-Za-z0-9\\s]+$"),
         ],
     )
     weight = models.IntegerField(
@@ -79,9 +80,14 @@ class Item(AbstractCatalogModel):
         default="",
         verbose_name="категория",
         help_text="Выберите категорию",
+        related_name="category",
     )
     tags = models.ManyToManyField(
-        Tag, default="", verbose_name="теги", help_text="Добавьте теги. P.S.:"
+        Tag,
+        default="",
+        verbose_name="теги",
+        help_text="Добавьте теги. P.S.:",
+        related_name="tags",
     )
 
     main_image = models.ImageField(
@@ -89,11 +95,15 @@ class Item(AbstractCatalogModel):
         help_text="Добавьте картинку для товара (она переделается в 300x300)",
         upload_to="catalog/images/main_images/",
         default=None,
+        blank=True,
     )
 
     def main_image_to_300x300(self):
         return get_thumbnail(
-            self.main_image, "300x300", crop="center", quality=51
+            self.main_image,
+            "300x300",
+            crop="center",
+            quality=51,
         )
 
     def image_tmb(self):
@@ -114,6 +124,7 @@ class Images(models.Model):
         on_delete=models.CASCADE,
         verbose_name="товар",
         help_text="Товар к которому добавить картинку",
+        related_name="item",
     )
 
     image = models.ImageField(

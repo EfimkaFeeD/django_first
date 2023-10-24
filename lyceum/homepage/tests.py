@@ -1,3 +1,5 @@
+__all__ = ["HomepageTests"]
+
 from http import HTTPStatus
 
 from django.test import override_settings, TestCase
