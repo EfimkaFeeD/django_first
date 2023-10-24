@@ -89,6 +89,20 @@ class Item(AbstractCatalogModel):
         related_name="tags",
     )
 
+
+class MainImage(models.Model):
+    class Meta:
+        verbose_name = "главная картинка"
+        verbose_name_plural = "главные картинки"
+
+    item = models.ForeignKey(
+        Item,
+        on_delete=models.CASCADE,
+        verbose_name="товар",
+        help_text="Товар к которому добавить главную картинку",
+        related_name="itemimg",
+    )
+
     main_image = models.ImageField(
         "картинка для товара",
         help_text="Добавьте картинку для товара (она переделается в 300x300)",

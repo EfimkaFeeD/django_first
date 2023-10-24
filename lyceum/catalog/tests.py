@@ -42,15 +42,6 @@ class CatalogTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_item_page(self):
-        self.item = Item.objects.create(
-            name="Итем для тестиков",
-            category=self.category,
-            text="Превосходно тестится"
-        )
-
-        self.item.full_clean()
-        self.item.save()
-        self.item.tags.add(self.tag)
         response = self.client.get(reverse("catalog:item_detail", args=[1]))
         self.assertEqual(response.status_code, 200)
 
