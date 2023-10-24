@@ -32,7 +32,7 @@ def item_list(request):
                 "name": item.name,
                 "path": reverse("catalog:item_detail", args=[item.id]),
                 "category": item.category.name,
-                "text": item.text,
+                "text": f"{item.text[:200]}...",
                 "main_image": item.main_image,
             }
         )

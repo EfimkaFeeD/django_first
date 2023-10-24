@@ -124,7 +124,7 @@ class Images(models.Model):
     )
 
     def __str__(self):
-        return os.path.split(self.image.name)[1][:50]
+        return os.path.split(self.image.name)[1][:250]
 
     def image_to_300x300(self):
         return get_thumbnail(self.image, "300x300", crop="center", quality=51)
