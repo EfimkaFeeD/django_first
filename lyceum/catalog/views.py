@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from catalog.models import Images, Item, MainImage
+from catalog.models import Images, Item
 
 
 def item_list(request):
@@ -14,7 +14,8 @@ def item_list(request):
             {
                 "name": item.name,
                 "path": reverse(
-                    "catalog:item_detail_for_site", args=[item.id],
+                    "catalog:item_detail_for_site",
+                    args=[item.id],
                 ),
                 "category": item.category.name,
                 "text": f"{item.text[:200]}...",
