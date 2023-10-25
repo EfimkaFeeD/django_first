@@ -5,8 +5,8 @@ import os
 import django.core.exceptions
 import django.core.validators
 import django.db.models as models
-from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 
 from catalog.validators import ValidateMustContain
