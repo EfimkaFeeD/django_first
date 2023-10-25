@@ -5,10 +5,10 @@ __all__ = [
     "TagModelTests",
 ]
 
-from django.test import TestCase
-import django.core.exceptions as exceptions
-import django.urls.exceptions as url_exceptions
 from django.urls import reverse
+import django.core.exceptions as exceptions
+from django.test import TestCase
+import django.urls.exceptions as url_exceptions
 
 from catalog.models import Category, Item, Tag
 
