@@ -84,7 +84,7 @@ class Item(AbstractCatalogModel, MainImage):
     def __str__(self):
         return self.name
 
-    text = models.TextField(
+    text = RichTextUploadingField(
         "текст",
         help_text="Опишите товар",
         default="",
@@ -105,7 +105,6 @@ class Item(AbstractCatalogModel, MainImage):
         help_text="Добавьте теги. P.S.:",
         related_name="tags",
     )
-    body = RichTextUploadingField(config_name="default")
 
 
 class Images(models.Model):
