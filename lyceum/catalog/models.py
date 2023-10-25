@@ -6,6 +6,7 @@ import django.core.exceptions
 import django.core.validators
 import django.db.models as models
 from django.utils.safestring import mark_safe
+from ckeditor_uploader.fields import RichTextUploadingField
 from sorl.thumbnail import get_thumbnail
 
 from catalog.validators import ValidateMustContain
@@ -104,6 +105,7 @@ class Item(AbstractCatalogModel, MainImage):
         help_text="Добавьте теги. P.S.:",
         related_name="tags",
     )
+    body = RichTextUploadingField(config_name="default")
 
 
 class Images(models.Model):

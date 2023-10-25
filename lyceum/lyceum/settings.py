@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 if DEBUG:
@@ -117,3 +119,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
+
+CKEDITOR_JQUERY_URL = (
+    "https://ajax.googleapis.com/ajax/libs/jquery/" "2.2.4/jquery.min.js"
+)
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
