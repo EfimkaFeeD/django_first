@@ -2,10 +2,10 @@ __all__ = ["Tag", "Category", "Item", "Images"]
 
 import os
 
+from ckeditor_uploader.fields import RichTextUploadingField
 import django.core.exceptions
 import django.core.validators
 import django.db.models as models
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 
