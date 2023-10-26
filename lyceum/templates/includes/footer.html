@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <p class="col-md-4 mb-0 text-body-secondary">&copy; 2023 000 "Дробь"</p>
 
@@ -8,8 +9,8 @@
     </a>
 
     <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-body-secondary">Главная</a></li>
-      <li class="nav-item"><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-body-secondary">Список товаров</a></li>
-      <li class="nav-item"><a href="{% url 'about:description' %}" class="nav-link px-2 text-body-secondary">О нас</a></li>
+      <li class="nav-item"><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-body-secondary">{% trans "Главная" %}</a></li>
+      <li class="nav-item"><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-body-secondary">{% trans "Список товаров" %}</a></li>
+      <li class="nav-item"><a href="{% url 'about:description' %}" class="nav-link px-2 text-body-secondary">{% trans "О проекте" %}</a></li>
     </ul>
   </footer>
