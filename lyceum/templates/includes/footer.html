@@ -2,15 +2,15 @@
 {% load static %}
 {% load i18n %}
 <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <p class="col-md-4 mb-0 text-body-secondary">&copy; 2023 000 "Дробь"</p>
+  <p class="col-md-4 mb-0 text-body-secondary"б id="yearify">&copy; {% now "Y" %} 000 "Дробь"</p>
 
-    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <img src="{%  static 'img/cat-in-tea.jpg' %}" width="240" alt="Картинка кота в чае">
-    </a>
+  <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+    <img src="{%  static 'img/cat-in-tea.jpg' %}" width="240" alt="Картинка кота в чае">
+  </a>
 
-    <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-body-secondary">{% trans "Главная" %}</a></li>
-      <li class="nav-item"><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-body-secondary">{% trans "Список товаров" %}</a></li>
-      <li class="nav-item"><a href="{% url 'about:description' %}" class="nav-link px-2 text-body-secondary">{% trans "О проекте" %}</a></li>
-    </ul>
-  </footer>
+  <ul class="nav col-md-4 justify-content-end">
+    <li class="nav-item"><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-body-secondary">{% trans "Главная" %}</a></li>
+    <li class="nav-item"><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-body-secondary">{% trans "Список товаров" %}</a></li>
+    <li class="nav-item"><a href="{% url 'about:description' %}" class="nav-link px-2 text-body-secondary">{% trans "О проекте" %}</a></li>
+  </ul>
+</footer>

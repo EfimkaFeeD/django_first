@@ -1,5 +1,4 @@
 {% load static %}
-{% load i18n %}
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -20,18 +19,7 @@
     </form>
   </head>
   <body>
-    <form action="{% url 'set_language' %}" method="post">
-      {% csrf_token %}
-      {% get_current_language as LANGUAGE_CODE %}
-      {% get_available_languages as LANGUAGES %}
-      {% for language in LANGUAGES %}
-        {% if language.0 != LANGUAGE_CODE %}
-          <button class="btn btn-primary" type="submit" name="language" value="{{ language.0 }}">
-            {{ language.1 }}
-          </button>
-        {% endif %}
-      {% endfor %}
-    </form>
+    {% include "includes/header.html" %}
     <main>
       {% block content %} {% endblock %}
     </main>
