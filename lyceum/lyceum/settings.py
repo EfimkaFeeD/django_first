@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from django.utils.translation import gettext_lazy
 from dotenv import load_dotenv
 
 
@@ -127,10 +128,10 @@ CKEDITOR_JQUERY_URL = (
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
-LANGUAGES = [
-    ["en", "English"],
-    ["ru", "Russian"],
-]
+LANGUAGES = (
+    ("en", gettext_lazy("en")),
+    ("ru", gettext_lazy("ru")),
+)
 
 LOCALE_PATHS = [
     BASE_DIR / "locale",
