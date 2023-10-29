@@ -3,20 +3,10 @@ __all__ = ["PositiveIntConverter"]
 from django.urls import path, re_path, register_converter
 
 import catalog.views as views
+from converters.posint import PositiveIntConverter
 
 
 app_name = "catalog"
-
-
-class PositiveIntConverter:
-    regex = r"[1-9]\d*"
-
-    def to_python(self, value):
-        return int(value)
-
-    def to_url(self, value):
-        return str(value)
-
 
 register_converter(PositiveIntConverter, "posint")
 
