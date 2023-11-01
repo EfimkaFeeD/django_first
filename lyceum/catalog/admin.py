@@ -9,6 +9,10 @@ class ImagesInline(admin.StackedInline):
     model = catalog.models.Images
 
 
+class MainImageInline(admin.StackedInline):
+    model = catalog.models.MainImage
+
+
 @admin.register(catalog.models.Images)
 class ImagesAdmin(admin.ModelAdmin):
     list_display = (catalog.models.Images.image_tmb,)
@@ -16,7 +20,7 @@ class ImagesAdmin(admin.ModelAdmin):
 
 @admin.register(catalog.models.Item)
 class ItemAdmin(admin.ModelAdmin):
-    inlines = [ImagesInline]
+    inlines = [ImagesInline, MainImageInline]
     list_display = (
         catalog.models.Item.name.field.name,
         catalog.models.Item.is_published.field.name,

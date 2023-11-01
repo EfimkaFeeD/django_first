@@ -1,4 +1,4 @@
-__all__ = ["Tag", "Category", "Item", "Images"]
+__all__ = ["Tag", "Category", "Item", "Images", "ItemManager"]
 
 import os
 
@@ -6,6 +6,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 import django.core.exceptions
 import django.core.validators
 import django.db.models as models
+from django.shortcuts import get_object_or_404
 from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 
@@ -60,23 +61,31 @@ class Category(AbstractCatalogModel):
     )
 
 
-class MainImage(models.Model):
-    class Meta:
-        abstract = True
+class ItemManager(models.Manager):
+    def published(self):
+        items = (self.get_queryset().filter(is_published=True, category__is_published=True).
+        prefetch_related(models.Prefetch(
+            "tags",
+            queryset=Tag.objects.filter(is_published=True).only("name"))).
+        only("name", "text").order_by("category__name"))
+        return items
 
-    main_image = models.ImageField(
-        verbose_name="главная картинка",
-        help_text="Главная картинка товара",
-        upload_to="catalog/images/main_images/",
-        default=None,
-        blank=True,
-    )
+    def full_item_details(self, pk):
+        item_details = get_object_or_404(
+            self.get_queryset().filter(is_published=True).
+            select_related("category").filter(category__is_published=True).
+            prefetch_related(models.Prefetch("tags",
+                             queryset=Tag.objects.filter(is_published=True).
+                             only("name"))).
+            prefetch_related("image").
+            only("name", "text", "category__name", "main_image__image"),
+            pk=pk
+        )
+        return item_details
 
-    def to_300x300(self):
-        return get_thumbnail(self.image, "300x300", quality=51)
 
-
-class Item(AbstractCatalogModel, MainImage):
+class Item(AbstractCatalogModel):
+    objects = ItemManager()
     class Meta:
         verbose_name = "товар"
         verbose_name_plural = "товары"
@@ -105,6 +114,31 @@ class Item(AbstractCatalogModel, MainImage):
         help_text="Добавьте теги. P.S.:",
         related_name="tags",
     )
+    is_on_main = models.BooleanField(
+        "на главной странице",
+        help_text= "Показ товара на главной странице",
+        default=False
+    )
+
+
+class MainImage(models.Model):
+    image = models.ImageField(
+        verbose_name="главная картинка",
+        help_text="Главная картинка товара",
+        upload_to="catalog/images/main_images/",
+        default=None,
+        blank=True,
+    )
+
+    item = models.OneToOneField(
+        Item, on_delete=models.CASCADE, related_name="main_image", default=None,
+    )
+
+    def to_300x300(self):
+        return get_thumbnail(self.image, "300x300", quality=51)
+
+    def __str__(self):
+        return self.image.name[1][:250]
 
 
 class Images(models.Model):
@@ -117,7 +151,7 @@ class Images(models.Model):
         on_delete=models.CASCADE,
         verbose_name="товар",
         help_text="Товар к которому добавить картинку",
-        related_name="item",
+        related_name="image",
     )
 
     image = models.ImageField(

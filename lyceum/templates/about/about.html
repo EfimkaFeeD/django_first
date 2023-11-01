@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
+{% load static %}
 {% block title %} О нас {% endblock %}
 {% block content %}
   <h1 align="center">Страница о сайте</h1>
   <div align="center">
-    <h3>Наша компания уже давно (с 2023 года) является лидером в продажах товаров первой необходимости и еды.</h3>
+    <h3>Считаем что котеги - крутые с 2023.</h3>
+  </div>
+  <div align="center">
+    <video controls autoplay loop>
+      <source src="{% static 'img/komaru.mp4' %}" type="video/mp4">
+    </video>
   </div>
 {% endblock %}

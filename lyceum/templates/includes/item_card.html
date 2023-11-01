@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<div>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title" align="center">{{item.name}}</h5>
+        <p class="card-text" align="center">{{item.tags.all | join:", "}}</p>
+        <p class="card-text" align="center">{{ item.text|truncatewords_html:10|safe }}</p>
+        <div align="center">
+          <a href="{% url 'catalog:item_detail' item_id=item.id %}" class="btn btn-primary">Перейти к товару</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

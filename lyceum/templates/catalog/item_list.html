@@ -1,26 +1,13 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
-{% load thumbnail %}
 {% block title %} Каталог {% endblock %}
 {% block content %}
   <h1 align="center">Страница с товарами</h1>
   <div class="row  row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-6 g-4">
     {% for item in items %}
-    {% thumbnail item.main_image "300x300" crop="center" as image %}
-      <div class="col">
-        <div class="card">
-          <img src="{{image.url}}" alt="Превьюшка товара">
-    {% endthumbnail %}
-          <div class="card-body">
-            <h5 class="card-title" align="center">{{item.name}}</h5>
-            <p class="card-text" align="center">{{item.category}}</p>
-            <p class="card-text" align="center">{{item.text}}</p>
-            <div align="center">
-              <a href="{{item.path}}" class="btn btn-primary">Перейти к товару</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include "includes/item_card.html" %}
+    {% empty %}
+      <h2>Товаров нет, но вы держитесь</h2>
     {% endfor %}
   </div>
 {% endblock %}

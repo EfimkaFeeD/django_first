@@ -7,8 +7,14 @@
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
       <h1 class="fw-light">{{item.name}}</h1>
-      <p class="lead text-body-secondary">{{item.category}}</p>
-      <p class="lead text-body-secondary">{{item.text}}</p>
+      <p class="lead text-body-secondary">{{item.category.name}}</p>
+      <p class="card-text" align="center">{{item.tags.all | join:", "}}</p>
+      <p class="lead text-body-secondary">{{ item.text|truncatewords_html:10|safe }}</p>
+      <div>
+        {% thumbnail item.main_image.image "300x300" crop="center" as image %}
+          <img src="{{image.url}}" alt="Главная картинка товара">
+        {% endthumbnail %}
+      </div>
       <p>
         <a href="https://www.youtube.com/watch?v=qWNQUvIk954&t=44s" class="btn btn-primary my-2">Купить (не надо кликайте пока что пжпж)</a>
         <a href="{% url 'catalog:item_list' %}" class="btn btn-secondary my-2">Обратно в каталог</a>
@@ -19,7 +25,7 @@
 <div class="album py-5">
   <div class="container">
     <div class="row row-cols-auto row-cols-sm-auto row-cols-md-auto g-3">
-      {% for image in item.images %}
+      {% for image in item.image.all %}
         <div class="col">
           <div class="card shadow-sm">
             {% thumbnail image.image "300x300" crop="center" as image %}
