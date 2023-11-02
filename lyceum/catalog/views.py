@@ -3,7 +3,7 @@ __all__ = ["item_list", "item_detail", "re_item_detail", "item_converter"]
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from catalog.models import Images, Item, Tag, ItemManager
+from catalog.models import Item
 
 
 def item_list(request):

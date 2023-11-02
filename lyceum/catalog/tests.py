@@ -41,7 +41,7 @@ class CatalogTests(TestCase):
             is_published=True,
             name="Товар для тестиков",
             category=cls.category,
-            text="Превосодно тестируемый товар"
+            text="Превосодно тестируемый товар",
         )
 
     def test_catalog_page(self):
@@ -313,14 +313,14 @@ class ContextTests(TestCase):
             is_published=True,
             name="Товар для тестиков рабочий",
             text="Превосходно рабочий товар",
-            category=cls.category_published
+            category=cls.category_published,
         )
 
         cls.item_unpublished = Item.objects.create(
             is_published=False,
             name="Товар для тестиков нерабочий",
             text="Превосходно нерабочий товар",
-            category=cls.category_published
+            category=cls.category_published,
         )
 
         cls.category_published.full_clean()
@@ -342,10 +342,12 @@ class ContextTests(TestCase):
         cls.item_published.save()
         cls.item_unpublished.save()
 
-        cls.item_published.tags.add(cls.tag_published,
-                                    cls.tag_repeat_unpublished)
-        cls.item_unpublished.tags.add(cls.tag_unpublished,
-                                      cls.tag_repeat_published)
+        cls.item_published.tags.add(
+            cls.tag_published, cls.tag_repeat_unpublished,
+        )
+        cls.item_unpublished.tags.add(
+            cls.tag_unpublished, cls.tag_repeat_published,
+        )
 
     def test_homepage_correct_context(self):
         response = self.client.get(reverse("homepage:home"))
@@ -364,8 +366,9 @@ class ContextTests(TestCase):
     def test_homepage_context_item_category_name(self):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
-        self.assertEqual(items[0].category.name,
-                         "Категория для тестиков рабочая")
+        self.assertEqual(
+            items[0].category.name, "Категория для тестиков рабочая",
+        )
 
     def test_homepage_context_item_tags_count(self):
         response = self.client.get(reverse("homepage:home"))
@@ -375,6 +378,6 @@ class ContextTests(TestCase):
     def test_homepage_context_item_tags_name(self):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
-        self.assertEqual(items[0].tags.all()[0].name,
-                         "Тег для тестиков рабочий")
-
+        self.assertEqual(
+            items[0].tags.all()[0].name, "Тег для тестиков рабочий",
+        )
