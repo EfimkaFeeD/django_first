@@ -7,7 +7,7 @@ from catalog.models import Item
 
 
 def home(request):
-    data = Item.objects.published()
+    data = Item.objects.main_page()
     return render(request, "homepage/main.html", context={"items": data})
 
 

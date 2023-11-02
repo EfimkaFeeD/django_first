@@ -1,0 +1,42 @@
+Tag
+-
+id PK int
+name varchar(150) UNIQUE
+is_published bool
+slug varchar(200) UNIQUE
+
+
+Category
+-
+id PK int FK >- Item.category_id
+name varchar(150) UNIQUE
+is_published bool
+weight integer
+slug varchar(200) UNIQUE
+
+Item
+-
+id PK int
+name varchar UNIQUE
+is_published bool
+text text
+category_id int
+is_on_main bool
+
+ItemImage
+-
+id PK int
+image varchar(100)
+item_id int FK >- Item.id
+
+MainImage
+-
+id PK int
+image varchar
+item_id int UNIQUE FK >- Item.id
+
+ItemTags
+-
+id PK int
+tag_id int FK >- Tag.id
+item_id int FK >- Item.id
