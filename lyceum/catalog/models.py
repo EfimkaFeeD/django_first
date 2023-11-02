@@ -83,6 +83,17 @@ class ItemManager(models.Manager):
         )
         return item_details
 
+    def main_page(self):
+        main_page_items = (
+            self.get_queryset().filter(is_published=True, is_on_main=True).
+            select_related("category").filter(category__is_published=True).
+            order_by("name").prefetch_related(models.Prefetch("tags",
+                             queryset=Tag.objects.filter(is_published=True).
+                             only("name"))).
+            only("name", "text", "category__name")
+        )
+        return main_page_items
+
 
 class Item(AbstractCatalogModel):
     objects = ItemManager()

@@ -1,12 +1,14 @@
 __all__ = ["home", "coffee"]
 
 from django.http import HttpResponse
-from django.template import loader
+from django.shortcuts import render
+
+from catalog.models import Item
 
 
 def home(request):
-    template = loader.get_template("homepage/main.html")
-    return HttpResponse(template.render({}, request))
+    data = Item.objects.published()
+    return render(request, "homepage/main.html", context={"items": data})
 
 
 def coffee(request):

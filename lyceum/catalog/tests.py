@@ -37,6 +37,13 @@ class CatalogTests(TestCase):
             slug="tag-for-tests-repeat",
         )
 
+        cls.item = Item.objects.create(
+            is_published=True,
+            name="Товар для тестиков",
+            category=cls.category,
+            text="Превосодно тестируемый товар"
+        )
+
     def test_catalog_page(self):
         response = self.client.get(reverse("catalog:item_list"))
         self.assertEqual(response.status_code, 200)
@@ -257,3 +264,117 @@ class TagModelTests(TestCase):
             self.tag.save()
 
         self.assertEqual(Tag.objects.count(), tags_in_db)
+
+
+class ContextTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.category_published = Category.objects.create(
+            is_published=True,
+            name="Категория для тестиков рабочая",
+            slug="category-for-tests-working",
+            weight=999,
+        )
+
+        cls.category_unpublished = Category.objects.create(
+            is_published=False,
+            name="Категория для тестиков нерабочая",
+            slug="category-for-tests-not-working",
+            weight=999,
+        )
+
+        cls.tag_published = Tag.objects.create(
+            is_published=True,
+            name="Тег для тестиков рабочий",
+            slug="tag-for-tests-working",
+        )
+
+        cls.tag_repeat_published = Tag.objects.create(
+            is_published=True,
+            name="Тег для тестиков репит рабочий",
+            slug="tag-for-tests-repeat-working",
+        )
+
+        cls.tag_unpublished = Tag.objects.create(
+            is_published=False,
+            name="Тег для тестиков нерабочий",
+            slug="tag-for-tests-not-working",
+        )
+
+        cls.tag_repeat_unpublished = Tag.objects.create(
+            is_published=False,
+            name="Тег для тестиков репит нерабочий",
+            slug="tag-for-tests-repeat-not-working",
+        )
+
+        cls.item_published = Item.objects.create(
+            is_published=True,
+            name="Товар для тестиков рабочий",
+            text="Превосходно рабочий товар",
+            category=cls.category_published
+        )
+
+        cls.item_unpublished = Item.objects.create(
+            is_published=False,
+            name="Товар для тестиков нерабочий",
+            text="Превосходно нерабочий товар",
+            category=cls.category_published
+        )
+
+        cls.category_published.full_clean()
+        cls.category_unpublished.full_clean()
+        cls.category_published.save()
+        cls.category_unpublished.save()
+
+        cls.tag_published.full_clean()
+        cls.tag_repeat_published.full_clean()
+        cls.tag_unpublished.full_clean()
+        cls.tag_repeat_unpublished.full_clean()
+        cls.tag_published.save()
+        cls.tag_repeat_published.save()
+        cls.tag_unpublished.save()
+        cls.tag_repeat_unpublished.save()
+
+        cls.item_published.full_clean()
+        cls.item_unpublished.full_clean()
+        cls.item_published.save()
+        cls.item_unpublished.save()
+
+        cls.item_published.tags.add(cls.tag_published,
+                                    cls.tag_repeat_unpublished)
+        cls.item_unpublished.tags.add(cls.tag_unpublished,
+                                      cls.tag_repeat_published)
+
+    def test_homepage_correct_context(self):
+        response = self.client.get(reverse("homepage:home"))
+        self.assertIn("items", response.context)
+
+    def test_homepage_context_item_count(self):
+        response = self.client.get(reverse("homepage:home"))
+        items = response.context["items"]
+        self.assertEqual(items.count(), 1)
+
+    def test_homepage_context_item_name(self):
+        response = self.client.get(reverse("homepage:home"))
+        items = response.context["items"]
+        self.assertEqual(items[0].name, "Товар для тестиков рабочий")
+
+    def test_homepage_context_item_category_name(self):
+        response = self.client.get(reverse("homepage:home"))
+        items = response.context["items"]
+        self.assertEqual(items[0].category.name,
+                         "Категория для тестиков рабочая")
+
+    def test_homepage_context_item_tags_count(self):
+        response = self.client.get(reverse("homepage:home"))
+        items = response.context["items"]
+        self.assertEqual(items[0].tags.count(), 1)
+
+    def test_homepage_context_item_tags_name(self):
+        response = self.client.get(reverse("homepage:home"))
+        items = response.context["items"]
+        self.assertEqual(items[0].tags.all()[0].name,
+                         "Тег для тестиков рабочий")
+
