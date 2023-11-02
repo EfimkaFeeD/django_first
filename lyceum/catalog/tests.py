@@ -343,10 +343,12 @@ class ContextTests(TestCase):
         cls.item_unpublished.save()
 
         cls.item_published.tags.add(
-            cls.tag_published, cls.tag_repeat_unpublished,
+            cls.tag_published,
+            cls.tag_repeat_unpublished,
         )
         cls.item_unpublished.tags.add(
-            cls.tag_unpublished, cls.tag_repeat_published,
+            cls.tag_unpublished,
+            cls.tag_repeat_published,
         )
 
     def test_homepage_correct_context(self):
@@ -367,7 +369,8 @@ class ContextTests(TestCase):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
         self.assertEqual(
-            items[0].category.name, "Категория для тестиков рабочая",
+            items[0].category.name,
+            "Категория для тестиков рабочая",
         )
 
     def test_homepage_context_item_tags_count(self):
@@ -379,5 +382,6 @@ class ContextTests(TestCase):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
         self.assertEqual(
-            items[0].tags.all()[0].name, "Тег для тестиков рабочий",
+            items[0].tags.all()[0].name,
+            "Тег для тестиков рабочий",
         )
