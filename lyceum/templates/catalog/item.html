@@ -25,7 +25,7 @@
 <div class="album py-5">
   <div class="container">
     <div class="row row-cols-auto row-cols-sm-auto row-cols-md-auto g-3">
-      {% for image in item.image.all %}
+      {% for image in item.images.all %}
         <div class="col">
           <div class="card shadow-sm">
             {% thumbnail image.image "300x300" crop="center" as image %}

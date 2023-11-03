@@ -93,7 +93,7 @@ class ItemManager(models.Manager):
                     ),
                 ),
             )
-            .prefetch_related("image")
+            .prefetch_related("images")
             .only("name", "text", "category__name", "main_image__image"),
             pk=pk,
         )
@@ -191,7 +191,7 @@ class Images(models.Model):
         on_delete=models.CASCADE,
         verbose_name="товар",
         help_text="Товар к которому добавить картинку",
-        related_name="image",
+        related_name="images",
     )
 
     image = models.ImageField(

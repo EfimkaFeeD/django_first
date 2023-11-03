@@ -388,7 +388,6 @@ class ContextTests(TestCase):
         items = response.context["items"]
         self.assertIsInstance(items[0], Item)
 
-
     def test_catalog_context_item_type(self):
         response = self.client.get(reverse("catalog:item_list"))
         items = response.context["items"]
