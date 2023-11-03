@@ -358,7 +358,7 @@ class ContextTests(TestCase):
     def test_homepage_context_item_count(self):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
-        self.assertEqual(items.count(), 1)
+        self.assertEqual(len(items), 1)
 
     def test_homepage_context_item_name(self):
         response = self.client.get(reverse("homepage:home"))
@@ -376,7 +376,7 @@ class ContextTests(TestCase):
     def test_homepage_context_item_tags_count(self):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
-        self.assertEqual(items[0].tags.count(), 1)
+        self.assertEqual(len(items[0]).tags, 1)
 
     def test_homepage_context_item_tags_name(self):
         response = self.client.get(reverse("homepage:home"))
@@ -385,3 +385,14 @@ class ContextTests(TestCase):
             items[0].tags.all()[0].name,
             "Тег для тестиков рабочий",
         )
+
+    def test_homepage_context_item_type(self):
+        response = self.client.get(reverse("homepage:home"))
+        items = response.context["items"]
+        self.IsInstanse(items[0], Item)
+
+
+    def test_catalog_context_item_type(self):
+        response = self.client.get(reverse("catalog:item_list"))
+        items = response.context["items"]
+        self.IsInstanse(items[0], Item)

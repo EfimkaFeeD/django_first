@@ -74,7 +74,7 @@ class ItemManager(models.Manager):
                     ),
                 ),
             )
-            .only("name", "text")
+            .only("name", "text", "category__name")
             .order_by("category__name")
         )
         return items
@@ -170,6 +170,7 @@ class MainImage(models.Model):
         Item,
         on_delete=models.CASCADE,
         related_name="main_image",
+        related_query_name="main_image",
         default=None,
     )
 
