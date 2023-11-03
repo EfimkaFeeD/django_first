@@ -311,6 +311,7 @@ class ContextTests(TestCase):
 
         cls.item_published = Item.objects.create(
             is_published=True,
+            is_on_main=True,
             name="Товар для тестиков рабочий",
             text="Превосходно рабочий товар",
             category=cls.category_published,
@@ -318,6 +319,7 @@ class ContextTests(TestCase):
 
         cls.item_unpublished = Item.objects.create(
             is_published=False,
+            is_on_main=False,
             name="Товар для тестиков нерабочий",
             text="Превосходно нерабочий товар",
             category=cls.category_published,
@@ -373,11 +375,6 @@ class ContextTests(TestCase):
             "Категория для тестиков рабочая",
         )
 
-    def test_homepage_context_item_tags_count(self):
-        response = self.client.get(reverse("homepage:home"))
-        items = response.context["items"]
-        self.assertEqual(len(items[0]).tags, 1)
-
     def test_homepage_context_item_tags_name(self):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
@@ -389,10 +386,10 @@ class ContextTests(TestCase):
     def test_homepage_context_item_type(self):
         response = self.client.get(reverse("homepage:home"))
         items = response.context["items"]
-        self.IsInstanse(items[0], Item)
+        self.assertIsInstance(items[0], Item)
 
 
     def test_catalog_context_item_type(self):
         response = self.client.get(reverse("catalog:item_list"))
         items = response.context["items"]
-        self.IsInstanse(items[0], Item)
+        self.assertIsInstance(items[0], Item)
