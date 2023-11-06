@@ -1,3 +1,5 @@
+__all__ = ["FeedbackForm"]
+
 from django import forms
 
 from feedback.models import Feedback

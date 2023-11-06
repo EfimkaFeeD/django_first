@@ -1,3 +1,5 @@
+__all__ = ["FeedbackConfig"]
+
 from django.apps import AppConfig
 
 

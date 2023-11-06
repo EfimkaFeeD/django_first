@@ -1,3 +1,5 @@
+__all__ = ["Feedback"]
+
 from django.db import models
 
 

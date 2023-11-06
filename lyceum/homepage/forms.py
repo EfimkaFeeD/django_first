@@ -1,3 +1,5 @@
+__all__ = ["EchoForm"]
+
 from django import forms
 
 

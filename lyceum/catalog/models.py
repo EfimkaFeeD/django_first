@@ -63,7 +63,7 @@ class Category(AbstractCatalogModel):
 
 class ItemManager(models.Manager):
     def published(self):
-        items = (
+        return (
             self.get_queryset()
             .filter(is_published=True, category__is_published=True)
             .prefetch_related(
@@ -77,10 +77,9 @@ class ItemManager(models.Manager):
             .only("name", "text", "category__name")
             .order_by("category__name")
         )
-        return items
 
     def full_item_details(self, pk):
-        item_details = get_object_or_404(
+        return get_object_or_404(
             self.get_queryset()
             .filter(is_published=True)
             .select_related("category")
@@ -97,10 +96,9 @@ class ItemManager(models.Manager):
             .only("name", "text", "category__name", "main_image__image"),
             pk=pk,
         )
-        return item_details
 
     def main_page(self):
-        main_page_items = (
+        return (
             self.get_queryset()
             .filter(is_published=True, is_on_main=True)
             .select_related("category")
@@ -116,7 +114,6 @@ class ItemManager(models.Manager):
             )
             .only("name", "text", "category__name")
         )
-        return main_page_items
 
 
 class Item(AbstractCatalogModel):
@@ -210,6 +207,7 @@ class Images(models.Model):
     def image_tmb(self):
         if self.image:
             return mark_safe(f"<img src='{self.image.url}' width='50'")
+        return None
 
     image_tmb.short_description = "превью"
     image_tmb.allow_tags = True
