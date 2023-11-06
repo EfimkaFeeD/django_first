@@ -1,6 +1,6 @@
 ![pipeline](https://gitlab.crja72.ru/django_2023/students/144959-efimkafeed-47231/badges/main/pipeline.svg)
 
-![](readme_files/for-important-negotiations.gif)
+![](https://media.tenor.com/m7NouMXotJIAAAAd/komaru-gyost576.gif)
 
 # Для успешного запуска проекта:
 
@@ -15,7 +15,7 @@ source venv/bin/activate
 pip install -r requirements/prod.txt
 ```
 
-![](readme_files/cat-chilling.gif)
+![](https://media.tenor.com/i-sLmV90tBsAAAAd/%D0%BA%D0%BE%D0%BC%D0%B0%D1%80%D1%83.gif)
 
 ## Установка зависимостей для разработки:
 ```sh
@@ -27,10 +27,12 @@ pip install -r requirements/dev.txt
 pip install -r requirements/test.txt
 ```
 
-![](readme_files/delivery.gif)
+![](https://media.tenor.com/X7ZIAriTQpMAAAAC/%D0%BA%D0%BE%D0%BC%D0%B0%D1%80%D1%83-%D1%80%D0%BE%D0%B1%D0%BE%D0%BA%D1%81%D1%85%D1%85%D1%85.gif)
 
 ## Файл .env
 #### Переименуйте файл "test.env" по пути lyceum/lyceum в ".env" и впишите в переменню "SECRET_KEY" свой ключ
+
+![](https://media.tenor.com/V8Y0245j3YEAAAAC/komaru-cat.gif)
 
 ## python manage.py thumbnail clear
 #### Команда нужно чтобы корректно отобразились все картинки, ниже указан порядок ввода
@@ -42,12 +44,14 @@ python manage.py thumbnail clear
 python manage.py runserver
 ```
 
-![](readme_files/bred.gif)
+![](https://media.tenor.com/v6eBVD_YBfEAAAAd/komaru-cat.gif)
 
 # О сайте:
 
 ## Структура базы данных
 ![](ER.jpg)
+
+![](https://media.tenor.com/HENtA3Ut954AAAAd/%D0%BA%D0%BE%D0%BC%D0%B0%D1%80%D1%83.gif)
 
 ## Мультиязычность
 #### Сайт умеет в русский и английский языки
@@ -63,4 +67,4 @@ django-admin compilemessages
 
 З.Ы. 000 дробь это очень-очень локальный мем, поэтому название не случайно :D
 
-![](readme_files/hmmmmmmmmmmmmmmmmmmm.gif)
+![](https://media.tenor.com/96C4AbebWDQAAAAd/%D0%BA%D0%BE%D0%BC%D0%B0%D1%80%D1%83-%D0%BA%D0%BE%D1%82.gif)
