@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Спасибо {% endblock %}
+{% block content %}
+  <div align="center">
+    <h1>Спасибо за вашу обратную связь!</h1>
+    <h3>Мы очень ценим ваше мнение!</h3>
+    <img src="{% static 'img/feedback-thanks.gif' %}", alt="Гифка с котиком :3">
+  </div>
+{% endblock %}

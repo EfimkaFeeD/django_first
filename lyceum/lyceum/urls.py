@@ -8,6 +8,7 @@ urlpatterns = [
     path("", include("homepage.urls")),
     path("catalog/", include("catalog.urls")),
     path("about/", include("about.urls")),
+    path("feedback/", include("feedback.urls")),
     path("admin/", admin.site.urls),
     re_path(r"^ckeditor/", include("ckeditor_uploader.urls")),
     path("i18n/", include("django.conf.urls.i18n")),

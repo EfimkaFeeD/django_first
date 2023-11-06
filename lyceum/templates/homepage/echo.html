@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Echo {% endblock %}
+{% block content %}
+  <h1 align="center">Echo</h1>
+  <div class="container">
+    <form method="post" action="{% url 'homepage:echo_submit' %}">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+  </div>
+{% endblock %}

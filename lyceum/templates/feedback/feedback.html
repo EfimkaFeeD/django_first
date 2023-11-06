@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Обратная связь {% endblock %}
+{% block content %}
+  <h1>Форма обратной связи</h1>
+  <div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+  </div>
+{% endblock %}

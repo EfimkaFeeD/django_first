@@ -26,11 +26,18 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "catalog.apps.CatalogConfig",
     "homepage.apps.HomepageConfig",
+    "feedback.apps.FeedbackConfig",
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "ckeditor",
     "ckeditor_uploader",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 if DEBUG:
     INSTALLED_APPS.append("debug_toolbar.apps")
@@ -136,3 +143,9 @@ LANGUAGES = (
 LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+
+EMAIL_FILE_PATH = BASE_DIR / "send_mail"
+
+MAIL = os.environ.get("DJANGO_MAIL", "django@sample.mail")

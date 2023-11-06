@@ -17,8 +17,16 @@
   </div>
   <br>
   <div align="center">
-    <a href="{% url 'catalog:item_list' %}">
-      <button class="btn btn-lg btn-info rounded-pill px-3" type="button">ТЫК (Каталог)</button>
-    </a>
+    <div>
+      <a href="{% url 'catalog:item_list' %}">
+        <button class="btn btn-lg btn-info rounded-pill px-3" type="button">ТЫК (Каталог)</button>
+      </a>
+    </div>
+    <br>
+    <div>
+      <a href="{% url 'feedback:feedback' %}">
+        <button class="btn btn-lg btn-info rounded-pill px-3" type="button">Напишите о том, какие мы крутые</button>
+      </a>
+    </div>
   </div>
 {% endblock %}
